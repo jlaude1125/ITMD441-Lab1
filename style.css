@@ -18,6 +18,7 @@ body {
 
 /* Header Styles */
 .site-header {
+    position: relative;
     background-color: #fff;
     padding: 2rem;
     margin-bottom: 2rem;
@@ -31,13 +32,22 @@ body {
     gap: 2rem;
     max-width: 900px;
     margin: 0 auto;
+    /* give extra top padding so the absolutely positioned image doesn't overlap text */
+    padding-right: calc(clamp(80px, 14vw, 220px) + 2rem);
+    padding-top: clamp(1.25rem, 3.5vw, 3rem);
 }
 
+/* place the image at the top-right and scale responsively without cropping */
 .headshot {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: clamp(80px, 18vw, 220px); /* responsive width */
+    height: auto;                 /* preserve aspect ratio */
+    object-fit: contain;          /* avoid cropping for non-square images */
+    max-height: calc(100vh - 4rem); /* prevent it from becoming taller than viewport */
     border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
     flex-shrink: 0;
 }
 
@@ -183,9 +193,10 @@ p {
         padding: 2rem;
     }
 
+    /* keep width-only sizing to preserve logo aspect ratio */
     .headshot {
-        width: 160px;
-        height: 160px;
+        width: clamp(110px, 14vw, 180px);
+        height: auto;
     }
 
     h1 {
@@ -212,8 +223,8 @@ p {
     }
 
     .headshot {
-        width: 180px;
-        height: 180px;
+        width: clamp(140px, 12vw, 220px);
+        height: auto;
     }
 
     h1 {
